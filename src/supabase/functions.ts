@@ -1,4 +1,4 @@
-import axios from "axios";
+
 
 // import client from ./client
 import { createBrowserClient } from "./client";
@@ -14,7 +14,7 @@ interface BotResponse {
 
 export async function sendFirstMessage(message: string): Promise<BotResponse> {
     try {
-        const { data, error } = await supabase.functions.invoke("chat", {
+        const { data } = await supabase.functions.invoke("chat", {
             body: {
                 message,
                 sender: "user",
@@ -22,14 +22,14 @@ export async function sendFirstMessage(message: string): Promise<BotResponse> {
         });
         return data;
     } catch (error) {
-        throw new Error("Session retrieval failed.");
+        throw new Error(String(error));
     }
 }
 
 // send message, with sessionId
 export async function sendMessage(sessionId: string, message: string): Promise<BotResponse> {
     try {
-        const { data, error } = await supabase.functions.invoke("chat", {
+        const { data } = await supabase.functions.invoke("chat", {
             body: {
                 session_id: sessionId,
                 message,
@@ -38,6 +38,6 @@ export async function sendMessage(sessionId: string, message: string): Promise<B
         });
         return data;
     } catch (error) {
-        throw new Error("Message saving failed.");
+        throw new Error(String(error));
     }
 }

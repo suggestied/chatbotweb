@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import rehypeSanitize from "rehype-sanitize"
 import rehypeHighlight from "rehype-highlight"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar } from "@/components/ui/avatar"
 import { Bot, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -16,7 +16,7 @@ type Message = {
 }
 
 interface ChatMessageProps {
-  message: any
+  message: Message
 }
 
 export function ChatMessage({ message }: ChatMessageProps) {
@@ -53,11 +53,11 @@ export function ChatMessage({ message }: ChatMessageProps) {
                   {children}
                 </blockquote>
               ),
-              code: ({ node, inline, className, children, ...props }) => (
+              code: ({ className, children, ...props }) => (
                 <code
                   className={cn(
                     "font-mono text-sm",
-                    inline
+                    className === "language-text"
                       ? "bg-muted text-primary-foreground rounded px-1 py-0.5"
                       : "block bg-muted text-primary-foreground rounded-md p-2 my-2 overflow-x-auto",
                   )}

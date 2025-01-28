@@ -6,8 +6,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { createBrowserClient } from '@/supabase/client';
 import { ChatComponent } from '@/components/chat';
 
-export default async function ChatPage({ searchParams }: { searchParams: { id?: string } }) {
-  let sessionId = await searchParams.id || uuidv4();
+export default async function ChatPage({ searchParams }: { searchParams: Promise<{ id?: string }> }) {
+  const params = await searchParams;
+  const sessionId = params.id || uuidv4();
 
 
   const supabase = createBrowserClient();
