@@ -16,6 +16,7 @@ export default async function ChatPage({ searchParams }: { searchParams: Promise
   // Haal initiële berichten op via server-side rendering (SSR)
   const { data: initialMessages } = await supabase.from('chat_messages')
     .select('*')
+    .eq('session_id', sessionId)
     .order('created_at', { ascending: true }).limit(50);
 
     // log 
